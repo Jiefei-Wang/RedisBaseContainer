@@ -1,6 +1,3 @@
-## Load the packages
-suppressMessages(library(doRedis))
-
 ## Initialize the variables
 workerId <- Sys.getenv("workerId")
 queue <- NULL
@@ -49,6 +46,7 @@ if (workerId == 1) {
   message("Port: ", port)
   message("password: ", ifelse(!is.null(password), "set", "not set"))
   message("Timeout: ", timeout)
+  message("Backend: ", backend)
 }
 
 runPerContainer <- function(expr) {
@@ -64,10 +62,12 @@ error <- NULL
 while (as.numeric(Sys.time() - time1, "secs") < timeout && !success) {
   tryCatch({
     if (backend == "doRedis") {
+      suppressMessages(library(doRedis))
       redisWorker(queue, host = host, port = port, password = password)
       success <<- TRUE
     }
     if (backend == "RedisParam") {
+      suppressMessages(library(RedisParam))
       p <- RedisParam(jobname = queue, manager.hostname = host, manager.port = port, manager.password = password, is.worker = TRUE)
       bpstart(p)
       success <<- TRUE
