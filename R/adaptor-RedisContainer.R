@@ -88,8 +88,8 @@ setMethod("configWorkerContainerEnv", "RedisContainer",
 #' @inheritParams DockerParallel::getServerContainer
 #' @return A `RedisContainer` server container
 #' @export
-setMethod("getServerContainer", "doRedisContainer",function(workerContainer){
-    redisServerContainer()
+setMethod("getServerContainer", "RedisContainer",function(workerContainer){
+    RedisServerContainer()
 })
 
 

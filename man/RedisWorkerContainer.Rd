@@ -38,5 +38,5 @@ a \code{RedisContainerProvider} object
 Get the Redis worker container.
 }
 \examples{
-BiocBPRPWorkerContainer()
+RedisWorkerContainer(image = "r-base", backend = "doRedis")
 }

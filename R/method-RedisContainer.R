@@ -7,7 +7,8 @@ RedisContainer <- function(image = "", name = NULL,  environment = list(),
     environment = environment,
     maxWorkerNum = as.integer(maxWorkerNum),
     RPackages=RPackages,
-    sysPackages=sysPackages)
+    sysPackages=sysPackages,
+    backend = NULL)
 }
 
 doRedisContainer <- function(image = "", name = NULL,  environment = list(),
@@ -78,7 +79,8 @@ RedisServerContainer <- function(environment = list(), tag = "latest"){
 #' by `apt-get install` before running the R worker
 #' @param maxWorkerNum Integer, the maximum worker number in a container
 #'
-#' @examples BiocBPRPWorkerContainer()
+#' @examples
+#' RedisWorkerContainer(image = "r-base", backend = "doRedis")
 #' @return a `RedisContainerProvider` object
 #' @export
 RedisWorkerContainer <- function(
@@ -115,8 +117,9 @@ RedisWorkerContainer <- function(
 setMethod("show", "RedisContainer", function(object){
   cat("Redis container reference object\n")
   cat("  Image:     ", object$image, "\n")
-  cat("  backend:   ", object$backend, "\n")
-
+  if(!is.null(object$backend)){
+    cat("  backend:   ", object$backend, "\n")
+  }
   cat("  maxWorkers:", object$maxWorkerNum, "\n")
   if(!is.null(object$RPackages)){
     cat("  R packages:", paste0(object$RPackages, collapse = ", "), "\n")
