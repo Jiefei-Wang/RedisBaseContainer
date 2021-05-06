@@ -24,5 +24,6 @@ Suggests:
     rmarkdown,
     testthat,
     foreach,
-    BiocParallel
+    BiocParallel,
+    ECSFargateProvider
 VignetteBuilder: knitr

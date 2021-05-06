@@ -1,7 +1,21 @@
 context("Testing the container")
 library(foreach)
-doTest <- requireNamespace("RedisContainerProvider")&&
+library(BiocParallel)
+doTest <- requireNamespace("ECSFargateProvider")&&
     !is.null(aws.ecx::aws_get_access_key_id())
+
+testForeach <- function(){
+    res <- foreach(i = 1:2) %dopar%{
+        Sys.info()["user"]
+    }
+    expect_true(all(res=="root"))
+}
+environment(testForeach) <- globalenv()
+
+testBiocParallel <- function(){
+    res <- bplapply(1:2,function(x)Sys.info()["user"])
+    expect_true(all(res=="root"))
+}
 
 if(doTest){
     provider <- ECSFargateProvider::ECSFargateProvider()
@@ -13,10 +27,7 @@ if(doTest){
                                  workerContainer = container,
                                  workerNumber = 1L)
     expect_error(cluster$startCluster(), NA)
-    res <- foreach(i = 1:2) %dopar%{
-        Sys.info()["user"]
-    }
-    expect_true(all(res=="root"))
+    testForeach()
     cluster$stopCluster()
 
     ## Bioconductor doRedis backend
@@ -25,10 +36,7 @@ if(doTest){
                                  workerContainer = container,
                                  workerNumber = 1L)
     expect_error(cluster$startCluster(), NA)
-    res <- foreach(i = 1:2) %dopar%{
-        Sys.info()["user"]
-    }
-    expect_true(all(res=="root"))
+    testForeach()
     cluster$stopCluster()
 
     ## r-base RedisParam backend
@@ -37,8 +45,7 @@ if(doTest){
                                  workerContainer = container,
                                  workerNumber = 1L)
     expect_error(cluster$startCluster(), NA)
-    res <- bplapply(1:2,function(x)Sys.info()["user"])
-    expect_true(all(res=="root"))
+    testBiocParallel()
     cluster$stopCluster()
 
     ## Bioconductor RedisParam backend
@@ -47,8 +54,7 @@ if(doTest){
                                  workerContainer = container,
                                  workerNumber = 1L)
     expect_error(cluster$startCluster(), NA)
-    res <- bplapply(1:2,function(x)Sys.info()["user"])
-    expect_true(all(res=="root"))
+    testBiocParallel()
     cluster$stopCluster()
 }
 
