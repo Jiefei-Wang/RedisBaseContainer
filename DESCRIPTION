@@ -1,4 +1,4 @@
-Package: RedisContainerProvider
+Package: RedisBaseContainer
 Title: The container for the DockerParallel package
 Version: 0.99.0
 Authors@R: 
@@ -15,15 +15,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
   DockerParallel,
-  RedisParam,
-  doRedis,
   methods,
   utils
 Suggests: 
     knitr,
-    rmarkdown,
-    testthat,
-    foreach,
-    BiocParallel,
-    ECSFargateProvider
+    rmarkdown
 VignetteBuilder: knitr

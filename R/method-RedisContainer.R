@@ -30,7 +30,7 @@ NULL
 #'
 #' @inheritParams RedisContainer-commom-parameters
 #' @examples RedisServerContainer()
-#' @return a `RedisContainerProvider` object
+#' @return a `RedisContainer` object
 #' @export
 RedisServerContainer <- function(environment = list(), tag = "latest"){
   name <- "redisRServerContainer"
