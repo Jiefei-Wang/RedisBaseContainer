@@ -11,32 +11,6 @@ RedisContainer <- function(image = "", name = NULL,  environment = list(),
     backend = NULL)
 }
 
-doRedisContainer <- function(image = "", name = NULL,  environment = list(),
-                             maxWorkerNum = 4L,
-                             RPackages = NULL,
-                             sysPackages = NULL){
-  .doRedisContainer$new(
-    name=name, image = image,
-    environment = environment,
-    maxWorkerNum = as.integer(maxWorkerNum),
-    RPackages=RPackages,
-    sysPackages=sysPackages,
-    backend = "doRedis")
-}
-
-RedisParamContainer <- function(image = "", name = NULL,  environment = list(),
-                                maxWorkerNum = 4L,
-                                RPackages = NULL,
-                                sysPackages = NULL){
-  .RedisParamContainer$new(
-    name=name, image = image,
-    environment = environment,
-    maxWorkerNum = as.integer(maxWorkerNum),
-    RPackages=RPackages,
-    sysPackages=sysPackages,
-    backend = "RedisParam")
-}
-
 #' Common RedisContainer parameter
 #'
 #' Common RedisContainer parameter
@@ -64,47 +38,6 @@ RedisServerContainer <- function(environment = list(), tag = "latest"){
   RedisContainer(image = image, name=name,
                  environment=environment,
                  maxWorkerNum=1L)
-}
-
-#' Get the Redis worker container
-#'
-#' Get the Redis worker container.
-#'
-#' @inheritParams RedisContainer-commom-parameters
-#' @param image Character, the worker image used by the container
-#' @param backend Character, the parallel backend used in the container
-#' @param RPackages Character, a vector of R packages that will be installed
-#' by `AnVIL::install` before connecting with the server
-#' @param sysPackages Character, a vector of system packages that will be installed
-#' by `apt-get install` before running the R worker
-#' @param maxWorkerNum Integer, the maximum worker number in a container
-#'
-#' @examples
-#' RedisWorkerContainer(image = "r-base", backend = "doRedis")
-#' @return a `RedisContainerProvider` object
-#' @export
-RedisWorkerContainer <- function(
-  image = c("r-base", "bioconductor"),
-  backend = c("doRedis", "RedisParam"),
-  RPackages = NULL,
-  sysPackages = NULL,
-  environment = list(),
-  maxWorkerNum = 4L,
-  tag = "latest"){
-  image <- match.arg(image)
-  backend <- match.arg(backend)
-
-  name <- "redisRWorkerContainer"
-  image <- paste0("dockerparallel/", image, "-worker:",tag)
-  if(backend == "doRedis"){
-    doRedisContainer(image = image, name=name, RPackages=RPackages, sysPackages=sysPackages,
-                     environment=environment,
-                     maxWorkerNum=maxWorkerNum)
-  }else{
-    RedisParamContainer(image = image, name=name, RPackages=RPackages, sysPackages=sysPackages,
-                        environment=environment,
-                        maxWorkerNum=maxWorkerNum)
-  }
 }
 
 #' Show the Redis container

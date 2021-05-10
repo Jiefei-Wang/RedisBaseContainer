@@ -1,7 +1,11 @@
 ###########################
 ## container provider
 ###########################
-# The base container
+#' The base redis container
+#'
+#' The base redis container. It should not be directly used by the user.
+#'
+#' @exportClass RedisContainer
 .RedisContainer <- setRefClass(
     "RedisContainer",
     fields = list(
@@ -10,13 +14,4 @@
         backend = "CharOrNULL"
     ),
     contains = "DockerContainer"
-)
-
-.RedisParamContainer <- setRefClass(
-    "RedisParamContainer",
-    contains = "RedisContainer"
-)
-.doRedisContainer <- setRefClass(
-    "doRedisContainer",
-    contains = "RedisContainer"
 )
