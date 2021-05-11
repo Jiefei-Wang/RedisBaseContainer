@@ -1,0 +1,54 @@
+---
+title: "vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(RedisBaseContainer)
+
+
+if(FALSE){
+  library(readr)
+  fileName <- "README.md"
+  knitr::knit("inst/vignette.Rmd", output = fileName)
+  fileName <- fileName
+  content <- readChar(fileName, file.info(fileName)$size)
+  content <- gsub("---.+?---","",content)
+  content <- gsub("^(\r\n)+","",content)
+  content <- gsub("([a-zA-Z]+)\\.jpg","vignettes/\\1.jpg",content)
+  write_file(content, file = fileName)
+}
+```
+
+
+This package is an extension package for the `DockerParallel` package and defines the common functions for the container class. It cannot be directly used by the end user. The user should use the package `doRedisContainer` and `RedisParamContainer`.
+
+# doRedisContainer
+The package `doRedisContainer` provides the worker container with foreach doRedis backend. The user can create the container object by
+```{r, eval=FALSE}
+library(doRedisContainer)
+workerContainer <- doRedisWorkerContainer(image = "r-base")
+```
+The argument `image` determines the base image used by the container. The server container can be obtained by
+```{r, eval=FALSE}
+serverContainer <- doRedisServerContainer()
+```
+
+# RedisParamContainer
+The package `RedisParamContainer` provides the worker container with BiocParallel RedisParam backend. The user can create the container object by
+```{r, eval=FALSE}
+library(RedisParamContainer)
+workerContainer <- RedisParamWorkerContainer(image = "r-base")
+```
+The argument `image` determines the base image used by the container. The server container can be obtained by
+```{r, eval=FALSE}
+serverContainer <- RedisParamServerContainer()
+```

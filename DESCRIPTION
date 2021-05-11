@@ -1,6 +1,6 @@
 Package: RedisBaseContainer
 Title: The container for the DockerParallel package
-Version: 0.99.0
+Version: 1.0.0
 Authors@R: 
     person(given = "Jiefei",
            family = "Wang",
@@ -10,7 +10,6 @@ Description:
   Providing the container for the DockerParallel package.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
@@ -19,5 +18,6 @@ Imports:
   utils
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    markdown
 VignetteBuilder: knitr
