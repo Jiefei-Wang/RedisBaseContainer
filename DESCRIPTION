@@ -1,5 +1,5 @@
 Package: RedisBaseContainer
-Title: The container for the DockerParallel package
+Title: The Container for the DockerParallel Package
 Version: 1.0.0
 Authors@R: 
     person(given = "Jiefei",

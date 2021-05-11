@@ -7,47 +7,37 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-library(RedisBaseContainer)
 
-
-if(FALSE){
-  library(readr)
-  fileName <- "README.md"
-  knitr::knit("vignettes/vignette.Rmd", output = fileName)
-  fileName <- fileName
-  content <- readChar(fileName, file.info(fileName)$size)
-  content <- gsub("---.+?---","",content)
-  content <- gsub("^(\r\n)+","",content)
-  write_file(content, file = fileName)
-}
-```
 
 
 This package is an extension package for the `DockerParallel` package and defines the common functions for the container class. It cannot be directly used by the end user. The user should use the package `doRedisContainer` and `RedisParamContainer`.
 
 # doRedisContainer
 The package `doRedisContainer` provides the worker container with foreach doRedis backend.At the time of writing, the package `doRedis` is not available on CRAN, the latest version can be installed from github `remotes::install_github("bwlewis/doRedis")`. The worker container can be made by
-```{r, eval=FALSE}
+
+```r
 library(doRedisContainer)
 workerContainer <- doRedisWorkerContainer(image = "r-base")
+workerContainer
 ```
 The argument `image` determines the base image used by the container. The server container can be obtained by
-```{r, eval=FALSE}
+
+```r
 serverContainer <- doRedisServerContainer()
+serverContainer
 ```
 
 # RedisParamContainer
 The package `RedisParamContainer` provides the worker container with BiocParallel RedisParam backend. At the time of writing, the package `RedisParam` is not available on Bioconductor, the latest version can be installed from github `remotes::install_github("mtmorgan/RedisParam")`. The worker container can be made by
-```{r, eval=FALSE}
+
+```r
 library(RedisParamContainer)
 workerContainer <- RedisParamWorkerContainer(image = "r-base")
+workerContainer
 ```
 The argument `image` determines the base image used by the container. The server container can be obtained by
-```{r, eval=FALSE}
+
+```r
 serverContainer <- RedisParamServerContainer()
+serverContainer
 ```
