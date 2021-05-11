@@ -7,12 +7,21 @@ The package `doRedisContainer` provides the worker container with foreach doRedi
 library(doRedisContainer)
 workerContainer <- doRedisWorkerContainer(image = "r-base")
 workerContainer
+#> Redis container reference object
+#>   Image:      dockerparallel/r-base-worker:latest 
+#>   backend:    doRedis 
+#>   maxWorkers: 4 
+#>   Environment variables:
 ```
 The argument `image` determines the base image used by the container. The server container can be obtained by
 
 ```r
 serverContainer <- doRedisServerContainer()
 serverContainer
+#> Redis container reference object
+#>   Image:      dockerparallel/redis-r-server:latest 
+#>   maxWorkers: 1 
+#>   Environment variables:
 ```
 
 # RedisParamContainer
@@ -22,10 +31,19 @@ The package `RedisParamContainer` provides the worker container with BiocParalle
 library(RedisParamContainer)
 workerContainer <- RedisParamWorkerContainer(image = "r-base")
 workerContainer
+#> Redis container reference object
+#>   Image:      dockerparallel/r-base-worker:latest 
+#>   backend:    RedisParam 
+#>   maxWorkers: 4 
+#>   Environment variables:
 ```
 The argument `image` determines the base image used by the container. The server container can be obtained by
 
 ```r
 serverContainer <- RedisParamServerContainer()
 serverContainer
+#> Redis container reference object
+#>   Image:      dockerparallel/redis-r-server:latest 
+#>   maxWorkers: 1 
+#>   Environment variables:
 ```

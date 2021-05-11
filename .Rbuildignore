@@ -2,4 +2,4 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 container_image
-^\inst\vignettes.Rmd$
+^inst\vignettes.Rmd$
