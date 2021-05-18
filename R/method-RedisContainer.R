@@ -34,7 +34,7 @@ NULL
 #' @export
 RedisServerContainer <- function(environment = list(), tag = "latest"){
   name <- "redisRServerContainer"
-  image <- paste0("dockerparallel/redis-r-server:",tag)
+  image <- paste0("docker.io/dockerparallel/redis-r-server:",tag)
   RedisContainer(image = image, name=name,
                  environment=environment,
                  maxWorkerNum=1L)
