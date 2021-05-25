@@ -1,14 +1,14 @@
-RedisContainer <- function(image = "", name = NULL,  environment = list(),
+RedisContainer <- function(image = "", name = character(),  environment = list(),
                            maxWorkerNum = 4L,
-                           RPackages = NULL,
-                           sysPackages = NULL){
+                           RPackages = character(),
+                           sysPackages = character()){
   .RedisContainer$new(
     name=name, image = image,
     environment = environment,
     maxWorkerNum = as.integer(maxWorkerNum),
     RPackages=RPackages,
     sysPackages=sysPackages,
-    backend = NULL)
+    backend = character())
 }
 
 #' Common RedisContainer parameter
